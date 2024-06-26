@@ -4,7 +4,7 @@ import firebase_admin
 from firebase_admin import credentials, db
 
 # Initialize Firebase Realtime Database
-cred = credentials.Certificate('fire-836b7-firebase-adminsdk-o14a6-b5aaf1ddc1.json')
+cred = credentials.Certificate('fire-836b7-firebase-adminsdk-o14a6-6b0c1969a6.json')
 firebase_admin.initialize_app(cred, {"databaseURL": "https://fire-836b7-default-rtdb.firebaseio.com/"})
 db_helmet_ref = db.reference("/helmet_detection")
 db_object_ref = db.reference("/object_detection")
@@ -154,4 +154,4 @@ while True:
 
 # Release the webcam and close all windows
 cap.release()
-cv2.destroyAllWindows()t=
+cv2.destroyAllWindows()
