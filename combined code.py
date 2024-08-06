@@ -69,7 +69,7 @@ while True:
             x, y, w, h = helmet_boxes[i]
             helmet_persons.append((x, y, w, h))
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 255), 2)  # Yellow rectangle
-            cv2.putText(frame, 'Helmet Detected', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 255), 2)  # Yellow text
+            cv2.putText(frame, 'Helmet Detected', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)  # Yellow text
 
     # Detect people
     object_blob = cv2.dnn.blobFromImage(frame, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
@@ -121,15 +121,15 @@ while True:
                 helmet_status = 'No Helmet Detected'
 
             cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
-            cv2.putText(frame, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, color, 2)
-            cv2.putText(frame, helmet_status, (x, y - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 255), 2)  # Yellow text
+            cv2.putText(frame, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+            cv2.putText(frame, helmet_status, (x, y - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)  # Yellow text
 
     # Add a dividing line between the two areas
     cv2.line(frame, (int(width / 2), 0), (int(width / 2), height), (255, 255, 255), 2)
 
     # Display the result on the frame
-    cv2.putText(frame, 'Restricted Area', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
-    cv2.putText(frame, 'Unrestricted Area', (int(width / 2) + 50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+    cv2.putText(frame, 'Restricted Area', (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+    cv2.putText(frame, 'Unrestricted Area', (int(width / 2) + 50, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
     # Display the annotated frame
     cv2.imshow('Detection Feed', frame)
