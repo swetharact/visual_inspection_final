@@ -1,13 +1,6 @@
 import cv2
 import numpy as np
-import firebase_admin
-from firebase_admin import credentials, db
-
-# Initialize Firebase Realtime Database
-cred = credentials.Certificate('fire-836b7-firebase-adminsdk-o14a6-6b0c1969a6.json')
-firebase_admin.initialize_app(cred, {"databaseURL": "https://fire-836b7-default-rtdb.firebaseio.com/"})
-db_helmet_ref = db.reference("/helmet_detection")
-db_object_ref = db.reference("/object_detection")
+import time
 
 # Load YOLOv3 model for helmet detection
 helmet_net = cv2.dnn.readNet('yolov3-helmet.weights', 'yolov3-helmet.cfg')
@@ -140,13 +133,6 @@ while True:
 
     # Display the annotated frame
     cv2.imshow('Detection Feed', frame)
-
-    # Store the boolean values in Firebase Realtime Database
-    db_helmet_ref.set({'helmet_detected': helmet_detected})
-    db_object_ref.set({
-        'object_detected': object_detected,
-        'object_in_restricted_area': object_in_restricted_area
-    })
 
     # Break the loop if 'q' is pressed
     if cv2.waitKey(1) & 0xFF == ord('q'):
