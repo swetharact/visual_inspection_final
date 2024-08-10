@@ -1,6 +1,14 @@
 import cv2
 import numpy as np
-import time
+import pyttsx3
+
+# Initialize text-to-speech engine
+engine = pyttsx3.init()
+
+# Function to say text aloud
+def speak(text):
+    engine.say(text)
+    engine.runAndWait()
 
 # Load YOLOv3 model for helmet detection
 helmet_net = cv2.dnn.readNet('yolov3-helmet.weights', 'yolov3-helmet.cfg')
@@ -97,6 +105,8 @@ while True:
 
     object_detected = False
     object_in_restricted_area = False
+    person_count_in_restricted_area = 0  # Initialize count
+
     if len(object_indices) > 0:
         object_detected = True
         for i in object_indices.flatten():
@@ -109,6 +119,7 @@ while True:
 
             if is_inside_restricted_area(x, y, w, h, restricted_area):
                 object_in_restricted_area = True
+                person_count_in_restricted_area += 1  # Increment count
                 color = (0, 0, 255)  # Red for restricted area
                 label = 'Person in Restricted Area'
             else:
@@ -133,6 +144,10 @@ while True:
 
     # Display the annotated frame
     cv2.imshow('Detection Feed', frame)
+
+    # Announce the number of persons in the restricted area
+    if person_count_in_restricted_area > 0:
+        speak(f"There are {person_count_in_restricted_area} person(s) in the restricted area.")
 
     # Break the loop if 'q' is pressed
     if cv2.waitKey(1) & 0xFF == ord('q'):
